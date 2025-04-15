@@ -1,5 +1,5 @@
 .header {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -20,14 +20,14 @@
     display: block;
     height: 50px;
     object-fit: contain;
-    transition: 0.2s;
+    transition: transform 0.2s ease;
 }
 
 .logo img:hover {
     display: block;
     height: 50px;
     object-fit: contain;
-    transform: all scale(1.05);
+    transform: scale(1.05);
 }
 
 /* Navbar base */

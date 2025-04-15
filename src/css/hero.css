@@ -39,10 +39,10 @@
 .btn {
     background: #3e5f8a;
     color: white;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: 500;
+    padding: 16px 50px;
+    font-weight: 200;
     transition: background 0.3s;
+    font-size: 22px;
 }
 
 .btn:hover {
