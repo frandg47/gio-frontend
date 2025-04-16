@@ -1,42 +1,36 @@
-.header {
-    position: absolute;
+.main-header {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 10%;
-    background-color: transparent;
+    padding: 10px 10%;
+    background-color: rgba(0, 0, 0, 0.5); /* fondo semitransparente */
+    backdrop-filter: blur(10px); /* efecto de desenfoque */
+    -webkit-backdrop-filter: blur(10px); /* compatibilidad Safari */
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* sombra opcional */
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo img {
-    display: block;
+.main-logo img {
     height: 50px;
     object-fit: contain;
     transition: transform 0.2s ease;
 }
 
-.logo img:hover {
-    display: block;
-    height: 50px;
-    object-fit: contain;
+.main-logo img:hover {
     transform: scale(1.05);
 }
 
 /* Navbar base */
-.navbar {
+.main-navbar {
     display: flex;
     gap: 40px;
 }
 
-.navbar a {
+.main-navbar a {
     position: relative;
     font-size: 18px;
     color: #fff;
@@ -44,8 +38,7 @@
     text-decoration: none;
 }
 
-/* Línea bajo el enlace */
-.navbar a::before {
+.main-navbar a::before {
     content: '';
     position: absolute;
     top: 100%;
@@ -56,19 +49,19 @@
     transition: 0.3s;
 }
 
-.navbar a:hover::before {
+.main-navbar a:hover::before {
     width: 100%;
 }
 
 /* Menú hamburguesa */
-.menu-toggle {
+.main-menu-toggle {
     display: none;
     flex-direction: column;
     cursor: pointer;
     gap: 5px;
 }
 
-.menu-toggle span {
+.main-menu-toggle span {
     width: 25px;
     height: 3px;
     background-color: white;
@@ -77,25 +70,25 @@
 }
 
 /* Animación de la X */
-.menu-toggle.open span:nth-child(1) {
+.main-menu-toggle.toggle-open span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
 
-.menu-toggle.open span:nth-child(2) {
+.main-menu-toggle.toggle-open span:nth-child(2) {
     opacity: 0;
 }
 
-.menu-toggle.open span:nth-child(3) {
+.main-menu-toggle.toggle-open span:nth-child(3) {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .menu-toggle {
+    .main-menu-toggle {
         display: flex;
     }
 
-    .navbar {
+    .main-navbar {
         position: absolute;
         top: 100%;
         left: 0;
@@ -107,11 +100,12 @@
         display: none;
     }
 
-    .navbar.active {
+    .main-navbar.menu-active {
         display: flex;
     }
 
-    .navbar a {
+    .main-navbar a {
         margin: 10px 0;
     }
 }
+

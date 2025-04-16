@@ -1,6 +1,7 @@
 import React from 'react'
 import '../css/banner.css'
-import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn } from 'react-icons/fa'
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTiktok } from 'react-icons/fa'
+
 
 const Banner = () => {
     return (
@@ -13,10 +14,16 @@ const Banner = () => {
 
                 <div className="banner-media">
                     <div className="social-icons-vertical">
-                        <a href="#"><FaFacebookF /></a>
-                        <a href="#"><FaInstagram /></a>
-                        <a href="#"><FaTwitter /></a>
-                        <a href="#"><FaLinkedinIn /></a>
+                        <a 
+                        href="https://www.facebook.com/profile.php?id=61565154660636"
+                        target="_blank"><FaFacebookF /></a>
+                        <a 
+                        href="https://www.instagram.com/gio.estudio.arq/"
+                        target="_blank"><FaInstagram /></a>
+                        <a 
+                        href="https://www.tiktok.com/@gio.arquitectura"
+                        target="_blank"><FaTiktok /></a>
+                        {/* <a href="#"><FaLinkedinIn /></a> */}
                     </div>
 
                     <div className="banner-logo">

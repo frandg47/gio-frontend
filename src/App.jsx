@@ -1,24 +1,19 @@
 
 
 
-import Banner from './components/Banner'
-import Contact from './components/Contact'
-import Hero from './components/Hero'
-import Navbar from './components/navbar'
-import ProjectsCarousel from './components/ProjectsCarousel'
-import Services from './components/Services'
 import './css/index.css'
+
+import Navbar from './components/Navbar'
+import Home from './pages/Home'
+import Projects from './pages/Projects'
 
 function App() {
 
   return (
     <>
       <Navbar />
-      <Hero />
-      <Services />
-      <ProjectsCarousel />
-      <Banner />
-      <Contact />
+      {/* <Home /> */}
+      <Projects />
     </>
   )
 }
