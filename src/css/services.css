@@ -1,13 +1,12 @@
 /* Sección de Servicios */
 .services-section {
     padding: 50px 10%;
-    background: linear-gradient(to bottom, #000000 50%, #ffffff 50%);
+    background: linear-gradient(to bottom, #000 50%, #ffffff 50%);
     text-align: center;
 }
 
 .section-title {
     font-size: 36px;
-    font-weight: 700;
     color: white;
     margin-bottom: 40px;
 }
@@ -22,7 +21,7 @@
     background-color: #fff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: left;
-    transition: transform 0.3s ease;
+    transition: transform 0.6s ease;
 }
 
 .service-card:hover {
