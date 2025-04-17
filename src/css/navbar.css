@@ -109,3 +109,34 @@
     }
 }
 
+.main-navbar .active-link::before {
+    width: 100%;
+    background-color: #3e5f8a;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+}
+
+.link-button::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #3e5f8a;
+    transition: 0.3s;
+}
+
+.link-button:hover::before {
+    width: 100%;
+}
