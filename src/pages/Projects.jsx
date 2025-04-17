@@ -1,8 +1,13 @@
 import React from 'react'
+import HeroProjects from '../components/HeroProjects'
+import ProjectsSection from '../components/ProjectsSection'
 
 const Projects = () => {
   return (
-    <div>Projects</div>
+    <>
+        <HeroProjects />
+        <ProjectsSection />
+    </>
   )
 }
 

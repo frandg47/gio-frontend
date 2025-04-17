@@ -1,7 +1,6 @@
 import React from 'react'
 import Banner from '../components/Banner'
 import Contact from '../components/Contact'
-import Footer from '../components/Footer'
 import Hero from '../components/Hero'
 import ProjectsCarousel from '../components/ProjectsCarousel'
 import Services from '../components/Services'
@@ -13,8 +12,7 @@ const Home = () => {
             <Services />
             <ProjectsCarousel />
             <Banner />
-            <Contact />
-            <Footer />
+            <Contact />            
         </>
     )
 }
