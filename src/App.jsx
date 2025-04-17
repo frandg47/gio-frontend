@@ -8,21 +8,23 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
 import Footer from './components/Footer'
+import ProjectDetails from './pages/ProjectDetail';
+import Error404 from './pages/Error404';
 
 function App() {
 
   return (
     <>
-      <Navbar />
       <Router>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/proyectos" element={<Projects />} />
-          <Route path='/proyectos/:id' element={""} />
-          <Route path='*' element={""} />
+          <Route path='/proyectos/:id' element={<ProjectDetails />} />
+          <Route path='*' element={<Error404 />} />
         </Routes>
+        <Footer />
       </Router>
-      <Footer />
     </>
   )
 }

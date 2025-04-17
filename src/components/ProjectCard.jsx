@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../css/projectCard.css';
 
-const ProjectCard = ({ image, title, description }) => {
+const ProjectCard = ({ id, image, title, description }) => {
     return (
-        <div className="project-card">
+        <Link to={`/proyectos/${id}`} className="project-card">
             <img src={image} alt={title} className="project-image" />
             <div className="overlay">
                 <div className="text-content">
@@ -11,9 +12,10 @@ const ProjectCard = ({ image, title, description }) => {
                     <p>{description}</p>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 
 export default ProjectCard;
+
 
