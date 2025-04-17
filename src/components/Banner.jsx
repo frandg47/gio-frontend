@@ -5,7 +5,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTiktok } from 'react-icons/fa
 
 const Banner = () => {
     return (
-        <div className="banner-social">
+        <section className="banner-social" id="about">
             <div className="banner-inner">
                 <div className="banner-text">
                     <h2>Conectá con nosotros</h2>
@@ -32,7 +32,7 @@ const Banner = () => {
                 </div>
             </div>
 
-        </div>
+        </section>
     )
 }
 

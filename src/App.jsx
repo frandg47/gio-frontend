@@ -10,12 +10,14 @@ import Projects from './pages/Projects'
 import Footer from './components/Footer'
 import ProjectDetails from './pages/ProjectDetail';
 import Error404 from './pages/Error404';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
 
   return (
     <>
       <Router>
+        <ScrollToTop />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

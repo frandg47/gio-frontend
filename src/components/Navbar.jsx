@@ -13,28 +13,31 @@ const Navbar = () => {
         }
         return location.pathname === path;
     };
-    
 
-    const handleContactClick = () => {
+
+    const handleSectionClick = (sectionId) => {
         setMenuOpen(false);
 
         if (location.pathname === "/") {
-            // Ya estamos en la home, solo scrollear
-            const section = document.getElementById("contact");
+            const section = document.getElementById(sectionId);
             if (section) {
                 section.scrollIntoView({ behavior: "smooth" });
             }
         } else {
-            // Navegar a la home y pasar estado
-            navigate("/", { state: { scrollTo: "contact" } });
+            navigate("/", { state: { scrollTo: sectionId } });
         }
+    };
+
+    const handleLogoClick = () => {
+        setMenuOpen(false);
+        window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     return (
         <header className="main-header">
-            <a href="#" className="main-logo" onClick={() => setMenuOpen(false)}>
+            <span className="main-logo" onClick={handleLogoClick}>
                 <img src="/LOGO 2.png" alt="logo" width={100} height={50} />
-            </a>
+            </span>
 
             <nav className={`main-navbar ${menuOpen ? 'menu-active' : ''}`}>
                 <Link
@@ -51,17 +54,17 @@ const Navbar = () => {
                 >
                     Proyectos
                 </Link>
-                <Link
+                {/* <Link
                     to="/nosotros"
                     className={isActive("/nosotros") ? "active-link" : ""}
                     onClick={() => setMenuOpen(false)}
                 >
                     Nosotros
-                </Link>
-                <button
-                    className="link-button"
-                    onClick={handleContactClick}
-                >
+                </Link> */}
+                <button className="link-button" onClick={() => handleSectionClick("about")}>
+                    Nosotros
+                </button>
+                <button className="link-button" onClick={() => handleSectionClick("contact")}>
                     Contacto
                 </button>
             </nav>

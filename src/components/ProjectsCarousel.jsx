@@ -1,6 +1,8 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Link } from 'react-router-dom';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -8,7 +10,7 @@ import 'swiper/css/pagination';
 import '../css/carousel.css';
 
 const ProjectsCarousel = () => {
-    
+
 
     const projects = [
         { image: '../public/proyecto1.jpg', title: 'POLO TECNOLOGICO' },
@@ -35,7 +37,9 @@ const ProjectsCarousel = () => {
                             <img src={project.image} alt={project.title} className="carousel-img" />
                             <div className="carousel-overlay">
                                 <h3>{project.title}</h3>
-                                <button>Ver más</button>
+                                <Link to="/proyectos">
+                                    <button>Ver más</button>
+                                </Link>
                             </div>
                         </div>
                     </SwiperSlide>

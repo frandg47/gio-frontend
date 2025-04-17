@@ -24,15 +24,7 @@
     z-index: 11;
 }
 
-/* Asegura que las imágenes llenen el contenedor */
-.carousel,
-.carousel-inner,
-.carousel-item,
-.carousel-item img {
-    height: 100%;
-}
-
-.carousel-item img {
-    object-fit: cover;
-    width: 100%;
+.carousel-control-prev,
+.carousel-control-next {
+  display: none !important;
 }
