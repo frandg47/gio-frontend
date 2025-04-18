@@ -6,7 +6,7 @@ const HeroProjects = () => {
     return (
         <section className="hero-projects-section">
             <div className="hero-overlay">
-                <h1 className="hero-title">PROYECTOS</h1>
+                <h2 className="hero-title">PROYECTOS</h2>
             </div>
 
             <Carousel fade interval={3000} controls indicators>
