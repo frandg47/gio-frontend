@@ -23,7 +23,6 @@ const Banner = () => {
                         <a 
                         href="https://www.tiktok.com/@gio.arquitectura"
                         target="_blank"><FaTiktok /></a>
-                        {/* <a href="#"><FaLinkedinIn /></a> */}
                     </div>
 
                     <div className="banner-logo">

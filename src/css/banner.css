@@ -1,7 +1,7 @@
 .banner-social {
     background: url("../public/bannerRedes.jpg") no-repeat center center;
     background-size: cover;
-    background-attachment: fixed; /* efecto parallax */
+    background-attachment: fixed; 
     height: 300px;
     display: flex;
     justify-content: center;
@@ -19,7 +19,6 @@
     color: white;
 }
 
-/* Texto a la izquierda */
 .banner-text {
     flex: 1;
     max-width: 400px;
@@ -39,7 +38,7 @@
 .banner-media {
     display: flex;
     align-items: center;
-    gap: 20px; /* separación entre iconos y logo */
+    gap: 20px; 
     height: 100%;
 }
 
@@ -57,13 +56,13 @@
 }
 
 .social-icons-vertical a:hover {
-    transform: scale(1.2) translateX(-10px); /* Se agranda y se mueve a la izquierda */
+    transform: scale(1.2) translateX(-10px); 
     color: #3e5f8a;
 }
 
 /* Logo */
 .banner-logo {
-    height: 100%; /* igual a los 300px del banner */
+    height: 100%; 
     display: flex;
     align-items: center;
 }

@@ -16,7 +16,7 @@
 }
 
 .hero-content-detail h3 {
-    font-size: 48px;
+    font-size: 3rem;
     text-transform: uppercase;
 }
 
@@ -40,14 +40,22 @@
 /* Galería de Imágenes */
 .image-gallery {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas fijas */
+    grid-template-columns: repeat(2, 1fr); 
     gap: 1.5rem;
     margin-top: 2rem;
 }
 
 @media (max-width: 768px) {
     .image-gallery {
-        grid-template-columns: 1fr; /* 1 columna en pantallas pequeñas */
+        grid-template-columns: 1fr; 
+    }
+
+    .hero-content-detail h3 {
+        font-size: 2rem;        
+    }
+
+    .hero-content-detail {
+        padding-top: 0;
     }
 }
 

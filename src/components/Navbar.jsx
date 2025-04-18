@@ -54,13 +54,6 @@ const Navbar = () => {
                 >
                     Proyectos
                 </Link>
-                {/* <Link
-                    to="/nosotros"
-                    className={isActive("/nosotros") ? "active-link" : ""}
-                    onClick={() => setMenuOpen(false)}
-                >
-                    Nosotros
-                </Link> */}
                 <button className="link-button" onClick={() => handleSectionClick("about")}>
                     Nosotros
                 </button>

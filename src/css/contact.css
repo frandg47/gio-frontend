@@ -53,21 +53,19 @@
     gap: 2rem;
     align-items: stretch;
     min-height: 300px;
-    /* Hace que las columnas tengan la misma altura */
 }
 
-/* Columna izquierda - Formulario */
+
 .contact-left {
     flex: 1;
 }
 
-/* Columna derecha - Info + Imagen */
+
 .contact-right {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* Centra el contenido verticalmente */
 }
 
 /* Formulario */
@@ -103,11 +101,10 @@
     object-fit: cover;
 }
 
-/* Hacer la columna derecha más pequeña en pantallas pequeñas */
+
 @media (max-width: 992px) {
     .contact-row {
         gap: 1rem;
-        /* Reducir el espacio entre las columnas */
     }
 
     .contact-left {

@@ -4,14 +4,14 @@
     left: 0;
     width: 100%;
     padding: 10px 10%;
-    background-color: rgba(0, 0, 0, 0.5); /* fondo semitransparente */
-    backdrop-filter: blur(10px); /* efecto de desenfoque */
-    -webkit-backdrop-filter: blur(10px); /* compatibilidad Safari */
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 100;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* sombra opcional */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .main-logo {

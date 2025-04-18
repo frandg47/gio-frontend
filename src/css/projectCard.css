@@ -15,7 +15,7 @@
     transition: transform 0.6s ease;
 }
 
-/* Overlay oscuro + texto */
+
 .overlay {
     position: absolute;
     top: 0;
@@ -50,4 +50,23 @@
 
 .project-card:hover .project-image {
     transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .project-card .overlay {
+        opacity: 1;
+    }
+    
+    .project-card .text-content {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .project-card .project-image {
+        transform: scale(1.05);
+    }
+
+    .text-content{
+        padding-top: 150px;
+    }
 }

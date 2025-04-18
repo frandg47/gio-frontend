@@ -73,7 +73,6 @@
 
 .swiper-container {
     width: 100%;
-    /* Para que ocupe todo el ancho */
 }
 
 @media (max-width: 768px) {

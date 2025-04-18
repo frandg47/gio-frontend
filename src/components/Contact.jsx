@@ -7,7 +7,6 @@ const Contact = () => {
             <h2 className="text-center contact-title">Contacto</h2>
 
             <div className="contact-row">
-                {/* Columna izquierda - Formulario */}
                 <div className="contact-left">
                     <form className="contact-form">
                         <div className="mb-4">
@@ -46,7 +45,6 @@ const Contact = () => {
                     </form>
                 </div>
 
-                {/* Columna derecha - Info + Imagen */}
                 <div className="contact-right">
                     <div className="contact-right-inner">
                         <div className="contact-info">
