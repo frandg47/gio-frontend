@@ -8,7 +8,7 @@ const Services = () => {
             <div className="services-container">
                 <div className="service-card">
                     <img 
-                        src="../../public/diseño-arquitectonico.jpg" 
+                        src="/public/diseño-arquitectonico.jpg" 
                         alt="Diseño arquitectónico" 
                         className="service-img" 
                     />
