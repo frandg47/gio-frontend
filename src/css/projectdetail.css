@@ -7,12 +7,17 @@
     color: white;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     height: 100vh;
+    background-color: #ccc; /* Fallback color mientras carga */
 }
 
 .hero-content-detail {
     text-align: center;
-    padding-top: 50vh;
+}
+
+.hero-content-detail.loaded {
+    padding-top: 50vh; /* Solo se aplica cuando la imagen está cargada */
 }
 
 .hero-content-detail h3 {
@@ -24,6 +29,7 @@
 .project-details {
     padding: 2rem;
     background-color: #f4f4f4;
+    min-height: 400px; /* Asegura espacio mínimo mientras carga */
 }
 
 .project-details h2 {
@@ -40,29 +46,38 @@
 /* Galería de Imágenes */
 .image-gallery {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     margin-top: 2rem;
 }
-
-@media (max-width: 768px) {
-    .image-gallery {
-        grid-template-columns: 1fr; 
-    }
-
-    .hero-content-detail h3 {
-        font-size: 2rem;        
-    }
-
-    .hero-content-detail {
-        padding-top: 0;
-    }
-}
-
 
 .gallery-item img {
     width: 100%;
     height: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+}
+
+
+/* Skeletons */
+.gallery-item .react-loading-skeleton {
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    transition: opacity 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .image-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content-detail h3 {
+        font-size: 2rem;
+    }
+
+    .hero-content-detail.loaded {
+        padding-top: 0;
+    }
 }

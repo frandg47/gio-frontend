@@ -13,7 +13,7 @@ const HeroProjects = () => {
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
-                        src="/casa1.jpg"
+                        src="/proyecto2.png"
                         alt="Proyecto 1"
                     />
                 </Carousel.Item>
