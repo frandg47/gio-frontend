@@ -8,7 +8,7 @@ const Services = () => {
             <div className="services-container">
                 <div className="service-card">
                     <img 
-                        src="/public/diseño-arquitectonico.jpg" 
+                        src="/diseño-arquitectonico.jpg" 
                         alt="Diseño arquitectónico" 
                         className="service-img" 
                     />
@@ -17,7 +17,7 @@ const Services = () => {
                 </div>
                 <div className="service-card">
                     <img 
-                        src="../../public/asesoria-tecnica.jpg" 
+                        src="/asesoria-tecnica.jpg" 
                         alt="Asesoría técnica" 
                         className="service-img" 
                     />
@@ -26,7 +26,7 @@ const Services = () => {
                 </div>
                 <div className="service-card">
                     <img 
-                        src="../../public/gestion-proyectos.jpg" 
+                        src="/gestion-proyectos.jpg" 
                         alt="Gestión de Proyectos" 
                         className="service-img" 
                     />
@@ -35,7 +35,7 @@ const Services = () => {
                 </div>
                 <div className="service-card">
                     <img 
-                        src="../../public/restauracion.jpg" 
+                        src="/restauracion.jpg" 
                         alt="Restauración y Conservación" 
                         className="service-img" 
                     />
