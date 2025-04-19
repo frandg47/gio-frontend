@@ -1,5 +1,5 @@
 .banner-social {
-    background: url("../public/bannerRedes.jpg") no-repeat center center;
+    background: url("/bannerRedes.jpg") no-repeat center center;
     background-size: cover;
     background-attachment: fixed; 
     height: 300px;
