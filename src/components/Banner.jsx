@@ -26,7 +26,7 @@ const Banner = () => {
                     </div>
 
                     <div className="banner-logo">
-                        <img src="../public/GIO MAS TIRA.png" alt="Logo" />
+                        <img src="/GIO MAS TIRA.png" alt="Logo" />
                     </div>
                 </div>
             </div>

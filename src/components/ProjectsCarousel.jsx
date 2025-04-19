@@ -13,10 +13,10 @@ const ProjectsCarousel = () => {
 
 
     const projects = [
-        { image: '../public/proyecto1.jpg', title: 'POLO TECNOLOGICO' },
-        { image: '../public/proyecto2.png', title: 'DUPLEX' },
-        { image: '../public/proyecto3.png', title: 'SEDRINK' },
-        { image: '../public/proyecto4.png', title: 'CASA LZ' }
+        { image: '/proyecto1.jpg', title: 'POLO TECNOLOGICO' },
+        { image: '/proyecto2.png', title: 'DUPLEX' },
+        { image: '/proyecto3.png', title: 'SEDRINK' },
+        { image: '/proyecto4.png', title: 'CASA LZ' }
     ];
 
     return (
