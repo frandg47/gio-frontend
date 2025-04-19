@@ -10,8 +10,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
+    "axios": "^1.8.4",
+    "bootstrap": "^5.3.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-bootstrap": "^2.10.9",
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.55.0",
+    "react-icons": "^5.5.0",
+    "react-image-lightbox": "^5.1.4",
+    "react-loading-skeleton": "^3.5.0",
+    "react-router-dom": "^7.5.0",
+    "sweetalert2": "^11.19.1",
+    "swiper": "^11.2.6",
+    "yet-another-react-lightbox": "^3.22.0",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
