@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import '../css/projectdetail.css';
 
 import { useEffect, useState } from 'react';
@@ -9,6 +9,8 @@ import { axiosInstance } from '../config/axiosInstance';
 import Swal from 'sweetalert2';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useParams, useNavigate } from 'react-router-dom';
+
 
 const ProjectDetails = () => {
     const { id } = useParams();
@@ -16,6 +18,8 @@ const ProjectDetails = () => {
     const [open, setOpen] = useState(false);
     const [index, setIndex] = useState(0);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+
 
     const getProject = async () => {
         try {
@@ -49,11 +53,12 @@ const ProjectDetails = () => {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
-                    height: '100vh'
+                    height: '80vh'
                 }}
             >
                 <div className={`hero-content-detail ${!loading ? 'loaded' : ''}`}>
                     {loading ? <Skeleton height={40} width="60%" /> : <h3>{project.title.toUpperCase()}</h3>}
+                    <button className="back-button" onClick={() => navigate(-1)}>← Volver</button>
                 </div>
             </section>
 
@@ -80,18 +85,24 @@ const ProjectDetails = () => {
                         <div className="image-gallery">
                             {project.gallery.map((image, idx) => (
                                 <div key={idx} className="gallery-item">
-                                    <img
-                                        src={image}
-                                        alt={`Imagen ${idx + 1}`}
-                                        onClick={() => {
-                                            setIndex(idx);
-                                            setOpen(true);
-                                        }}
-                                        className="gallery-img"
-                                    />
+                                    <div className="image-wrapper">
+                                        <img
+                                            src={image}
+                                            alt={`Imagen ${idx + 1}`}
+                                            onClick={() => {
+                                                setIndex(idx);
+                                                setOpen(true);
+                                            }}
+                                            className="gallery-img"
+                                        />
+                                        <div className="hover-overlay">
+                                            <span>Ver</span>
+                                        </div>
+                                    </div>
                                 </div>
                             ))}
                         </div>
+
 
                         {open && (
                             <Lightbox

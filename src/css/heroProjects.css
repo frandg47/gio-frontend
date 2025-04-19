@@ -1,5 +1,5 @@
 .hero-projects-section {
-    height: 100vh;
+    height: 70vh;
     position: relative;
     overflow: hidden;
 }
@@ -7,7 +7,7 @@
 .carousel,
 .carousel-item,
 .carousel-item img {
-    height: 100vh;
+    height: 70vh;
     object-fit: cover;
 }
 
