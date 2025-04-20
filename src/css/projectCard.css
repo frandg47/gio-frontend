@@ -1,7 +1,7 @@
 .project-card {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 200px;
     overflow: hidden;
     cursor: pointer;
     border: none;
@@ -54,19 +54,25 @@
 
 @media (max-width: 768px) {
     .project-card .overlay {
+        height: 25%;
+        bottom: 0;
+        top: auto;
         opacity: 1;
+        background: rgba(0, 0, 0, 0.5);
     }
-    
+
     .project-card .text-content {
         opacity: 1;
         transform: translateY(0);
+        padding-top: 0;
+        font-size: 14px;
     }
-    
+
     .project-card .project-image {
         transform: scale(1.05);
     }
 
-    .text-content{
+    .text-content {
         padding-top: 150px;
     }
 }

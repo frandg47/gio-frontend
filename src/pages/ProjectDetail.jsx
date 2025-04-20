@@ -58,7 +58,7 @@ const ProjectDetails = () => {
             >
                 <div className={`hero-content-detail ${!loading ? 'loaded' : ''}`}>
                     {loading ? <Skeleton height={40} width="60%" /> : <h3>{project.title.toUpperCase()}</h3>}
-                    <button className="back-button" onClick={() => navigate(-1)}>← Volver</button>
+                    <button className="back-button" onClick={() => navigate(-1)}>Volver</button>
                 </div>
             </section>
 

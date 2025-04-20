@@ -39,6 +39,10 @@
     .hero-overlay {
         padding-top: 0;
     }
+    .hero-projects-section {
+        height: 60vh !important;
+    }
+    
 }
 
 .carousel-control-prev,

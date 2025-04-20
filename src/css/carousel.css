@@ -97,6 +97,6 @@
 
     .carousel-overlay button {
         margin: 0 auto;
-        display: block;
+        display: none;
     }
 }
