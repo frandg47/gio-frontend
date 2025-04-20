@@ -95,9 +95,9 @@ const ProjectDetails = () => {
                                             }}
                                             className="gallery-img"
                                         />
-                                        <div className="hover-overlay">
+                                        {/* <div className="hover-overlay">
                                             <span>Ver</span>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             ))}

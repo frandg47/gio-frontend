@@ -158,11 +158,6 @@
     bottom: 0;
 }
 
-@media (max-width: 768px) {
-    .hover-overlay {
-        bottom: 0 !important;
-    }
-}
 
 
 
