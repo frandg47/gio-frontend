@@ -4,7 +4,7 @@ import '../css/services.css';
 const Services = () => {
     return (
         <section className="services-section">
-            <h2 className="section-title">Servicios</h2>
+            {/* <h2 className="section-title">Servicios</h2> */}
             <div className="services-container">
                 <div className="service-card">
                     <img 
@@ -32,15 +32,6 @@ const Services = () => {
                     />
                     <h3>Gestión de Proyectos</h3>
                     <p>Planificación, coordinación y supervisión de la ejecución de proyectos arquitectónicos de principio a fin.</p>
-                </div>
-                <div className="service-card">
-                    <img 
-                        src="/restauracion.jpg" 
-                        alt="Restauración y Conservación" 
-                        className="service-img" 
-                    />
-                    <h3>Restauración y Conservación</h3>
-                    <p>Servicios especializados en la restauración de edificios históricos, preservando su patrimonio y valores arquitectónicos.</p>
                 </div>
             </div>
         </section>

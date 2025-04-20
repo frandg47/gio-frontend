@@ -4,7 +4,7 @@
     left: 0;
     width: 100%;
     padding: 10px 10%;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.8); 
     backdrop-filter: blur(10px); 
     -webkit-backdrop-filter: blur(10px); 
     display: flex;
@@ -88,9 +88,9 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .main-header {
+    /* .main-header {
         position: absolute;
-    }
+    } */
 
     .main-menu-toggle {
         display: flex;
