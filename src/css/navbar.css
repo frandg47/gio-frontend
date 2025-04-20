@@ -88,6 +88,10 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    .main-header {
+        position: absolute;
+    }
+
     .main-menu-toggle {
         display: flex;
     }
