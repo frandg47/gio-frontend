@@ -40,7 +40,8 @@
         padding-top: 0;
     }
     .hero-projects-section {
-        height: 60vh !important;
+        height: calc(60vh-70px) !important;
+        margin-top: 70px;
     }
     
 }

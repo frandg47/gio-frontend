@@ -9,7 +9,7 @@
     background-position: center;
     background-repeat: no-repeat;
     height: 70vh;
-    background-color: #ccc; /* Fallback color mientras carga */
+    background-color: #ccc; 
 }
 
 .hero-content-detail {
@@ -87,7 +87,8 @@
     }
     
     .hero-section-detail {
-        height: 60vh !important;
+        height: (60vh-70px) !important;
+        margin-top: 70px;
     }
 }
 
