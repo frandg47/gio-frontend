@@ -87,7 +87,7 @@
     }
     
     .hero-section-detail {
-        height: calc(50vh-70px) !important;
+        height: calc(60vh - 70px) !important;
         margin-top: 70px;
     }
 }

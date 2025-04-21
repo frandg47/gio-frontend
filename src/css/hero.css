@@ -103,7 +103,7 @@
 @media (max-width: 768px) {
 
     .hero-section {
-        min-height: calc(50vh - 70px);
+        min-height: calc(60vh - 70px);
         margin-top: 70px;
     }
     .hero-presentation p {
