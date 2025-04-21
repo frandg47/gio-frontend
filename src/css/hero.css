@@ -94,6 +94,12 @@
     color: #3e5f8a;
 }
 
+.hero-presentation h5 {
+    font-size: 0.8rem;
+    color: #3e5f8a;
+    margin-top: -15px;
+}
+
 .hero-presentation p {
     font-size: 1.4rem;
     max-width: 800px;
