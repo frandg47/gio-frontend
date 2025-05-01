@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProjectCard from './ProjectCard';
 import '../css/projectsSection.css';
-import allProjects from '../helpers/projects';
 import Swal from 'sweetalert2';
 import Skeleton from 'react-loading-skeleton';
 import { axiosInstance } from '../config/axiosInstance.js'
