@@ -4,13 +4,18 @@ import { Table } from "react-bootstrap";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Swal from "sweetalert2";
+import EditProjectModal from "./EditProjectModal";
+import GalleryModal from "./GalleryModal";
 
 const ProjectsTable = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [projectToViewGallery, setProjectToViewGallery] = useState(null);
 
   const [showGalleryModal, setShowGalleryModal] = useState(false);
-  const [selectedGallery, setSelectedGallery] = useState([]);
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [projectToEdit, setProjectToEdit] = useState(null);
 
   const getProjects = async () => {
     try {
@@ -53,14 +58,59 @@ const ProjectsTable = () => {
     }
   };
 
-  const handleViewGallery = (gallery) => {
-    setSelectedGallery(gallery);
+  const handleSaveEdit = async (updatedProject) => {
+    try {
+      await axiosInstance.put(
+        `/proyectos/${updatedProject._id}`,
+        updatedProject
+      );
+      await getProjects();
+      Swal.fire(
+        "Actualizado",
+        "El proyecto fue actualizado con éxito.",
+        "success"
+      );
+      handleCloseEditModal();
+    } catch (err) {
+      console.error("Error al actualizar proyecto:", err);
+      Swal.fire("Error", "No se pudo actualizar el proyecto.", "error");
+    }
+  };
+
+  const handleViewGallery = (project) => {
+    setProjectToViewGallery(project);
     setShowGalleryModal(true);
   };
 
   const handleCloseGalleryModal = () => {
     setShowGalleryModal(false);
-    setSelectedGallery([]);
+    setProjectToViewGallery(null);
+  };
+
+  const handleEdit = (project) => {
+    setProjectToEdit({ ...project });
+    setShowEditModal(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+    setProjectToEdit(null);
+  };
+
+  const handleDeleteImage = async (projectId, imageUrl) => {
+    try {
+      await axiosInstance.put(`/proyectos/${projectId}/remove-image`, {
+        imageUrl,
+      });
+      await getProjects();
+      setProjectToViewGallery((prev) => ({
+        ...prev,
+        gallery: prev.gallery.filter((img) => img !== imageUrl),
+      }));
+    } catch (error) {
+      console.error("Error al eliminar imagen de la galería:", error);
+      Swal.fire("Error", "No se pudo eliminar la imagen.", "error");
+    }
   };
 
   return (
@@ -79,23 +129,48 @@ const ProjectsTable = () => {
         </thead>
         <tbody>
           {loading
-            ? Array.from({ length: 6 }).map((_, i) => (
+            ? Array.from({ length: 9 }).map((_, i) => (
                 <tr key={i}>
                   <td>
                     <Skeleton width={120} />
-                  </td>
+                  </td>{" "}
+                  {/* Nombre */}
                   <td>
                     <Skeleton count={2} />
-                  </td>
+                  </td>{" "}
+                  {/* Descripción */}
                   <td>
                     <Skeleton width={100} />
-                  </td>
+                  </td>{" "}
+                  {/* Detalles */}
                   <td>
                     <Skeleton width={100} />
-                  </td>
+                  </td>{" "}
+                  {/* Categoría */}
                   <td>
                     <Skeleton width={120} height={80} />
-                  </td>
+                  </td>{" "}
+                  {/* Portada */}
+                  <td>
+                    <div style={{ display: "flex", gap: "5px" }}>
+                      <Skeleton width={50} height={50} count={3} />
+                    </div>
+                  </td>{" "}
+                  {/* Imagenes */}
+                  <td>
+                    <Skeleton
+                      width={60}
+                      height={30}
+                      style={{ marginRight: "5px" }}
+                    />
+                    <Skeleton
+                      width={60}
+                      height={30}
+                      style={{ marginRight: "5px" }}
+                    />
+                    <Skeleton width={60} height={30} />
+                  </td>{" "}
+                  {/* Acciones */}
                 </tr>
               ))
             : projects.map((project) => (
@@ -151,7 +226,7 @@ const ProjectsTable = () => {
                     </button>
                     <button
                       className="btn btn-sm btn-secondary"
-                      onClick={() => handleViewGallery(project.gallery)}
+                      onClick={() => handleViewGallery(project)}
                     >
                       Ver
                     </button>
@@ -160,49 +235,19 @@ const ProjectsTable = () => {
               ))}
         </tbody>
       </Table>
-      {showGalleryModal && (
-        <div
-          className="modal fade show d-block"
-          tabIndex="-1"
-          role="dialog"
-          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-        >
-          <div className="modal-dialog modal-lg" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Galería de Imágenes</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={handleCloseGalleryModal}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <div className="row">
-                  {selectedGallery.map((img, idx) => (
-                    <div key={idx} className="col-md-4 mb-3">
-                      <img
-                        src={img}
-                        alt={`Imagen ${idx}`}
-                        className="img-fluid rounded"
-                        style={{ maxHeight: "200px", objectFit: "cover" }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="modal-footer">
-                <button
-                  className="btn btn-secondary"
-                  onClick={handleCloseGalleryModal}
-                >
-                  Cerrar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+
+      <EditProjectModal
+        show={showEditModal}
+        onClose={handleCloseEditModal}
+        project={projectToEdit}
+        onSave={handleSaveEdit}
+      />
+      <GalleryModal
+        show={showGalleryModal}
+        onClose={handleCloseGalleryModal}
+        project={projectToViewGallery}
+        onDeleteImage={handleDeleteImage}
+      />
     </div>
   );
 };
