@@ -7,16 +7,18 @@ import Swal from "sweetalert2";
 import EditProjectModal from "./EditProjectModal";
 import GalleryModal from "./GalleryModal";
 import CreateProjectModal from "./CreateProjectModal";
-import axios from "axios";
+import CoverImageModal from "./CoverImageModal";
 
 const ProjectsTable = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [projectToViewGallery, setProjectToViewGallery] = useState(null);
   const [showGalleryModal, setShowGalleryModal] = useState(false);
+  const [showCoverImage, setShowCoverImage] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [projectToEdit, setProjectToEdit] = useState(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [projectToCoverImage, setProjectToCoverImage] = useState(null);
 
   const handleOpenCreateModal = () => setShowCreateModal(true);
   const handleCloseCreateModal = () => setShowCreateModal(false);
@@ -68,7 +70,7 @@ const ProjectsTable = () => {
     if (result.isConfirmed) {
       console.log("id", id);
       try {
-        await axios.delete(`http://localhost:8080/eliminar/proyecto/${id}`);
+        await axiosInstance.delete(`eliminar/proyecto/${id}`);
         await getProjects();
         Swal.fire("¡Eliminado!", "El proyecto ha sido eliminado.", "success");
       } catch (err) {
@@ -97,14 +99,42 @@ const ProjectsTable = () => {
     }
   };
 
+  const handleGalleryUpdated = (updatedProject) => {
+    setProjects((prevProjects) =>
+      prevProjects.map((proj) =>
+        proj._id === updatedProject._id ? updatedProject : proj
+      )
+    );
+
+    setProjectToViewGallery(updatedProject);
+    getProjects();
+  };
+
+  const handleCoverImageSaved = (updatedProject) => {
+    setProjects((prev) =>
+      prev.map((p) => (p._id === updatedProject._id ? updatedProject : p))
+    );
+    getProjects();
+  };
+
   const handleViewGallery = (project) => {
     setProjectToViewGallery(project);
     setShowGalleryModal(true);
   };
 
+  const handleViewCoverImage = (project) => {
+    setProjectToCoverImage(project);
+    setShowCoverImage(true);
+  };
+
   const handleCloseGalleryModal = () => {
     setShowGalleryModal(false);
     setProjectToViewGallery(null);
+  };
+
+  const handleCloseCoverImage = () => {
+    setShowCoverImage(false);
+    setProjectToCoverImage(null);
   };
 
   const handleEdit = (project) => {
@@ -217,12 +247,12 @@ const ProjectsTable = () => {
                   <td>{project.category}</td>
                   <td>
                     {project.coverImage ? (
-                      <img
-                        src={project.coverImage}
-                        alt={project.title}
-                        className="img-thumbnail"
-                        style={{ maxWidth: "120px", height: "auto" }}
-                      />
+                      <button
+                        className="btn btn-sm btn-secondary"
+                        onClick={() => handleViewCoverImage(project)}
+                      >
+                        Ver Portada
+                      </button>
                     ) : (
                       <span>Sin imagen</span>
                     )}
@@ -231,24 +261,14 @@ const ProjectsTable = () => {
                     <div
                       style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}
                     >
-                      {project.gallery.slice(0, 3).map((img, index) => (
-                        <img
-                          key={index}
-                          src={img}
-                          alt={`Galería ${index}`}
-                          style={{
-                            width: "50px",
-                            height: "50px",
-                            objectFit: "cover",
-                            borderRadius: "4px",
-                          }}
-                        />
-                      ))}
-                      {project.gallery.length > 3 && (
-                        <span style={{ fontSize: "0.8rem" }}>
-                          +{project.gallery.length - 3} más
-                        </span>
-                      )}
+                      {
+                        <button
+                          className="btn btn-sm btn-secondary"
+                          onClick={() => handleViewGallery(project)}
+                        >
+                          Ver +{project.gallery.length}
+                        </button>
+                      }
                     </div>
                   </td>
                   <td>
@@ -263,12 +283,6 @@ const ProjectsTable = () => {
                       onClick={() => handleDelete(project._id)}
                     >
                       Eliminar
-                    </button>
-                    <button
-                      className="btn btn-sm btn-secondary"
-                      onClick={() => handleViewGallery(project)}
-                    >
-                      Ver
                     </button>
                   </td>
                 </tr>
@@ -288,6 +302,14 @@ const ProjectsTable = () => {
         onClose={handleCloseGalleryModal}
         project={projectToViewGallery}
         onDeleteImage={handleDeleteImage}
+        onGalleryUpdated={handleGalleryUpdated}
+      />
+
+      <CoverImageModal
+        show={showCoverImage}
+        onClose={handleCloseCoverImage}
+        project={projectToCoverImage}
+        onSave={handleCoverImageSaved}
       />
 
       <CreateProjectModal

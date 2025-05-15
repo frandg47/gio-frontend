@@ -5,7 +5,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTiktok } from 'react-icons/fa
 
 const Banner = () => {
     return (
-        <section className="banner-social" id="about">
+        <section className="banner-social">
             <div className="banner-inner">
                 <div className="banner-text">
                     <h2>Conectá con nosotros</h2>
