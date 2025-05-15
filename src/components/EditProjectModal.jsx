@@ -3,8 +3,6 @@ import { Modal, Button, Form, Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { axiosInstance } from "../config/axiosInstance"; // Asegúrate de que esta ruta sea correcta
 
-
-
 const EditProjectModal = ({ show, onClose, project, onSave }) => {
   const [formData, setFormData] = useState({
     title: "",
@@ -51,7 +49,11 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
 
   const handleSubmit = async () => {
     if (!formData.title || !formData.description || !formData.category) {
-      Swal.fire("Campos incompletos", "Por favor completa todos los campos obligatorios", "warning");
+      Swal.fire(
+        "Campos incompletos",
+        "Por favor completa todos los campos obligatorios",
+        "warning"
+      );
       return;
     }
 
@@ -72,15 +74,27 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await axiosInstance.put(`/editar/proyecto/${project._id}`, data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await axiosInstance.put(
+        `/editar/proyecto/${project._id}`,
+        data,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
-      Swal.fire("Actualizado", response.data.mensaje || "Proyecto actualizado", "success");
+      Swal.fire(
+        "Actualizado",
+        response.data.mensaje || "Proyecto actualizado",
+        "success"
+      );
       onSave(); // cerrar modal o refrescar lista
     } catch (err) {
       console.error(err);
-      Swal.fire("Error", err.response?.data?.mensaje || "No se pudo actualizar el proyecto", "error");
+      Swal.fire(
+        "Error",
+        err.response?.data?.mensaje || "No se pudo actualizar el proyecto",
+        "error"
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -118,13 +132,14 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
 
           <Form.Group controlId="formCategory">
             <Form.Label>Categoría</Form.Label>
-            <Form.Control
-              type="text"
+            <Form.Select
               name="category"
               value={formData.category}
               onChange={handleInputChange}
-              placeholder="Ingrese la categoría"
-            />
+            >
+              <option value="Residencial">Residencial</option>
+              <option value="Comercial">Comercial</option>
+            </Form.Select>
           </Form.Group>
 
           <Form.Group controlId="formDetails">
@@ -140,17 +155,30 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
 
           <Form.Group controlId="formCoverImage">
             <Form.Label>Imagen de portada</Form.Label>
-            <Form.Control type="file" accept="image/*" onChange={handleCoverImageChange} />
+            <Form.Control
+              type="file"
+              accept="image/*"
+              onChange={handleCoverImageChange}
+            />
             {previewCoverImage && (
               <div className="mt-2">
-                <img src={previewCoverImage} alt="Vista previa" style={{ width: "100%", borderRadius: "8px" }} />
+                <img
+                  src={previewCoverImage}
+                  alt="Vista previa"
+                  style={{ width: "100%", borderRadius: "8px" }}
+                />
               </div>
             )}
           </Form.Group>
 
           <Form.Group controlId="formGallery">
             <Form.Label>Galería de imágenes</Form.Label>
-            <Form.Control type="file" multiple accept="image/*" onChange={handleGalleryChange} />
+            <Form.Control
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={handleGalleryChange}
+            />
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -158,8 +186,16 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
         <Button variant="secondary" onClick={onClose} disabled={isSubmitting}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={handleSubmit} disabled={isSubmitting}>
-          {isSubmitting ? <Spinner animation="border" size="sm" /> : "Guardar Cambios"}
+        <Button
+          variant="primary"
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <Spinner animation="border" size="sm" />
+          ) : (
+            "Guardar Cambios"
+          )}
         </Button>
       </Modal.Footer>
     </Modal>

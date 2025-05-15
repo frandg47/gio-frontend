@@ -6,6 +6,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Swal from "sweetalert2";
 import EditProjectModal from "./EditProjectModal";
 import GalleryModal from "./GalleryModal";
+import CreateProjectModal from "./CreateProjectModal";
+import axios from "axios";
 
 const ProjectsTable = () => {
   const [projects, setProjects] = useState([]);
@@ -14,6 +16,26 @@ const ProjectsTable = () => {
   const [showGalleryModal, setShowGalleryModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [projectToEdit, setProjectToEdit] = useState(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+
+  const handleOpenCreateModal = () => setShowCreateModal(true);
+  const handleCloseCreateModal = () => setShowCreateModal(false);
+
+  const handleSaveCreate = async (formData) => {
+    try {
+      await axiosInstance.post("/crear/proyecto", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      await getProjects();
+      Swal.fire("Creado", "El proyecto fue creado con éxito.", "success");
+      handleCloseCreateModal();
+    } catch (err) {
+      console.error("Error al crear proyecto:", err);
+      Swal.fire("Error", "No se pudo crear el proyecto.", "error");
+    }
+  };
 
   const getProjects = async () => {
     try {
@@ -44,8 +66,9 @@ const ProjectsTable = () => {
     });
 
     if (result.isConfirmed) {
+      console.log("id", id);
       try {
-        await axiosInstance.delete(`/eliminar/proyecto/${id}`);
+        await axios.delete(`http://localhost:8080/eliminar/proyecto/${id}`);
         await getProjects();
         Swal.fire("¡Eliminado!", "El proyecto ha sido eliminado.", "success");
       } catch (err) {
@@ -57,9 +80,16 @@ const ProjectsTable = () => {
 
   const handleSaveEdit = async (updatedProject) => {
     try {
-      await axiosInstance.put(`/editar/proyecto/${updatedProject._id}`, updatedProject);
+      await axiosInstance.put(
+        `/editar/proyecto/${updatedProject._id}`,
+        updatedProject
+      );
       await getProjects();
-      Swal.fire("Actualizado", "El proyecto fue actualizado con éxito.", "success");
+      Swal.fire(
+        "Actualizado",
+        "El proyecto fue actualizado con éxito.",
+        "success"
+      );
       handleCloseEditModal();
     } catch (err) {
       console.error("Error al actualizar proyecto:", err);
@@ -122,6 +152,12 @@ const ProjectsTable = () => {
 
   return (
     <div className="container mt-5">
+      <h2 className="text-center">Lista de Proyectos</h2>
+      <div className="d-flex justify-content-end mb-3">
+        <button className="btn btn-success" onClick={handleOpenCreateModal}>
+          Crear proyecto
+        </button>
+      </div>
       <Table striped bordered hover responsive className="table-projects mt-4">
         <thead>
           <tr>
@@ -138,19 +174,37 @@ const ProjectsTable = () => {
           {loading
             ? Array.from({ length: 9 }).map((_, i) => (
                 <tr key={i}>
-                  <td><Skeleton width={120} /></td>
-                  <td><Skeleton count={2} /></td>
-                  <td><Skeleton width={100} /></td>
-                  <td><Skeleton width={100} /></td>
-                  <td><Skeleton width={120} height={80} /></td>
+                  <td>
+                    <Skeleton width={120} />
+                  </td>
+                  <td>
+                    <Skeleton count={2} />
+                  </td>
+                  <td>
+                    <Skeleton width={100} />
+                  </td>
+                  <td>
+                    <Skeleton width={100} />
+                  </td>
+                  <td>
+                    <Skeleton width={120} height={80} />
+                  </td>
                   <td>
                     <div style={{ display: "flex", gap: "5px" }}>
                       <Skeleton width={50} height={50} count={3} />
                     </div>
                   </td>
                   <td>
-                    <Skeleton width={60} height={30} style={{ marginRight: "5px" }} />
-                    <Skeleton width={60} height={30} style={{ marginRight: "5px" }} />
+                    <Skeleton
+                      width={60}
+                      height={30}
+                      style={{ marginRight: "5px" }}
+                    />
+                    <Skeleton
+                      width={60}
+                      height={30}
+                      style={{ marginRight: "5px" }}
+                    />
                     <Skeleton width={60} height={30} />
                   </td>
                 </tr>
@@ -174,7 +228,9 @@ const ProjectsTable = () => {
                     )}
                   </td>
                   <td>
-                    <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>
+                    <div
+                      style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}
+                    >
                       {project.gallery.slice(0, 3).map((img, index) => (
                         <img
                           key={index}
@@ -232,6 +288,12 @@ const ProjectsTable = () => {
         onClose={handleCloseGalleryModal}
         project={projectToViewGallery}
         onDeleteImage={handleDeleteImage}
+      />
+
+      <CreateProjectModal
+        show={showCreateModal}
+        onClose={handleCloseCreateModal}
+        onSave={handleSaveCreate}
       />
     </div>
   );
