@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, Spinner } from "react-bootstrap";
 
 const CreateProjectModal = ({ show, onClose, onSave }) => {
   const [title, setTitle] = useState("");
@@ -8,12 +8,15 @@ const CreateProjectModal = ({ show, onClose, onSave }) => {
   const [category, setCategory] = useState("Residencial");
   const [coverImage, setCoverImage] = useState(null);
   const [gallery, setGallery] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     if (!title || !coverImage) {
       alert("El título y la imagen de portada son obligatorios.");
+      setIsSubmitting(false);
       return;
     }
 
@@ -28,7 +31,14 @@ const CreateProjectModal = ({ show, onClose, onSave }) => {
       formData.append("gallery", file);
     });
 
-    onSave(formData);
+    try {
+      await onSave(formData);
+    } catch (error) {
+      console.error("Error al guardar el proyecto:", error);
+      alert("Ocurrió un error al guardar el proyecto.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
@@ -113,8 +123,15 @@ const CreateProjectModal = ({ show, onClose, onSave }) => {
             <Button variant="secondary" onClick={handleClose}>
               Cancelar
             </Button>
-            <Button type="submit" variant="success">
+            {/* <Button type="submit" variant="success">
               Crear
+            </Button> */}
+            <Button variant="success" disabled={isSubmitting} type="submit">
+              {isSubmitting ? (
+                <Spinner animation="border" size="sm" />
+              ) : (
+                "Crear Proyecto"
+              )}
             </Button>
           </div>
         </Form>

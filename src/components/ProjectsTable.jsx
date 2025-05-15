@@ -80,24 +80,15 @@ const ProjectsTable = () => {
     }
   };
 
-  const handleSaveEdit = async (updatedProject) => {
-    try {
-      await axiosInstance.put(
-        `/editar/proyecto/${updatedProject._id}`,
-        updatedProject
-      );
-      await getProjects();
-      Swal.fire(
-        "Actualizado",
-        "El proyecto fue actualizado con éxito.",
-        "success"
-      );
-      handleCloseEditModal();
-    } catch (err) {
-      console.error("Error al actualizar proyecto:", err);
-      Swal.fire("Error", "No se pudo actualizar el proyecto.", "error");
-    }
-  };
+const handleSaveEdit = async (updatedProject) => {
+  
+  setProjects((prev) =>
+    prev.map((p) => (p._id === updatedProject._id ? updatedProject : p))
+  );
+  handleCloseEditModal();
+};
+
+
 
   const handleGalleryUpdated = (updatedProject) => {
     setProjects((prevProjects) =>

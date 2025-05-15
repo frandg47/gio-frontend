@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
-import { axiosInstance } from "../config/axiosInstance"; // Asegúrate de que esta ruta sea correcta
+// import { axiosInstance } from "../config/axiosInstance";
+import axios from "axios"; // Asegúrate de importar axios correctamente
 
 const EditProjectModal = ({ show, onClose, project, onSave }) => {
   const [formData, setFormData] = useState({
@@ -9,12 +10,9 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
     description: "",
     category: "",
     details: "",
-    coverImage: null,
-    gallery: [],
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [previewCoverImage, setPreviewCoverImage] = useState(null);
 
   useEffect(() => {
     if (project) {
@@ -23,10 +21,7 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
         description: project.description || "",
         category: project.category || "",
         details: project.details || "",
-        coverImage: null,
-        gallery: [],
       });
-      setPreviewCoverImage(project.image); // Mostrar imagen actual
     }
   }, [project]);
 
@@ -35,51 +30,13 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCoverImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFormData((prev) => ({ ...prev, coverImage: file }));
-      setPreviewCoverImage(URL.createObjectURL(file));
-    }
-  };
-
-  const handleGalleryChange = (e) => {
-    setFormData((prev) => ({ ...prev, gallery: Array.from(e.target.files) }));
-  };
-
   const handleSubmit = async () => {
-    if (!formData.title || !formData.description || !formData.category) {
-      Swal.fire(
-        "Campos incompletos",
-        "Por favor completa todos los campos obligatorios",
-        "warning"
-      );
-      return;
-    }
-
-    const data = new FormData();
-    data.append("title", formData.title);
-    data.append("description", formData.description);
-    data.append("category", formData.category);
-    data.append("details", formData.details);
-
-    if (formData.coverImage) {
-      data.append("coverImage", formData.coverImage);
-    }
-
-    formData.gallery.forEach((file) => {
-      data.append("gallery", file);
-    });
-
     setIsSubmitting(true);
 
     try {
-      const response = await axiosInstance.put(
-        `/editar/proyecto/${project._id}`,
-        data,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
+      const response = await axios.put(
+        `http://localhost:8080/editar/proyecto/${project._id}`,
+        formData
       );
 
       Swal.fire(
@@ -87,12 +44,12 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
         response.data.mensaje || "Proyecto actualizado",
         "success"
       );
-      onSave(); // cerrar modal o refrescar lista
+      onSave({ ...project, ...formData });
     } catch (err) {
       console.error(err);
       Swal.fire(
         "Error",
-        err.response?.data?.mensaje || "No se pudo actualizar el proyecto",
+        err.response?.data?.mensaje || "No se pudo actualizar",
         "error"
       );
     } finally {
@@ -118,7 +75,7 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formDescription">
+          <Form.Group controlId="formDescription" className="mt-2">
             <Form.Label>Descripción</Form.Label>
             <Form.Control
               as="textarea"
@@ -130,7 +87,7 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formCategory">
+          <Form.Group controlId="formCategory" className="mt-2">
             <Form.Label>Categoría</Form.Label>
             <Form.Select
               name="category"
@@ -142,7 +99,7 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
             </Form.Select>
           </Form.Group>
 
-          <Form.Group controlId="formDetails">
+          <Form.Group controlId="formDetails" className="mt-2">
             <Form.Label>Detalles</Form.Label>
             <Form.Control
               type="text"
@@ -150,34 +107,6 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
               value={formData.details}
               onChange={handleInputChange}
               placeholder="Detalles adicionales (opcional)"
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formCoverImage">
-            <Form.Label>Imagen de portada</Form.Label>
-            <Form.Control
-              type="file"
-              accept="image/*"
-              onChange={handleCoverImageChange}
-            />
-            {previewCoverImage && (
-              <div className="mt-2">
-                <img
-                  src={previewCoverImage}
-                  alt="Vista previa"
-                  style={{ width: "100%", borderRadius: "8px" }}
-                />
-              </div>
-            )}
-          </Form.Group>
-
-          <Form.Group controlId="formGallery">
-            <Form.Label>Galería de imágenes</Form.Label>
-            <Form.Control
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={handleGalleryChange}
             />
           </Form.Group>
         </Form>
