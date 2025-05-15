@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Card, Row, Col, Form, Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const CoverImageModal = ({ show, onClose, project, onSave }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -14,29 +15,31 @@ const CoverImageModal = ({ show, onClose, project, onSave }) => {
 
   const handleSave = async () => {
     if (!selectedFile) {
-      Swal.fire("Error", "Debes seleccionar una nueva imagen para la portada.", "error");
+      Swal.fire(
+        "Error",
+        "Debes seleccionar una nueva imagen para la portada.",
+        "error"
+      );
       return;
     }
 
     setUploading(true);
 
     try {
-      // Aquí haces el upload al backend
-      // Suponiendo que tienes un endpoint para subir la imagen y actualizar la portada:
       const formData = new FormData();
       formData.append("coverImage", selectedFile);
 
-      // Ejemplo de fetch POST al backend
-      const res = await fetch(`/api/projects/${project._id}/cover-image`, {
-        method: "POST",
-        body: formData,
-      });
+      const res = await axios.put(
+        `http://localhost:8080/editar/proyecto/${project._id}/actualizar-portada`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-      if (!res.ok) {
-        throw new Error("Error al subir la imagen");
-      }
-
-      const updatedProject = await res.json();
+      const updatedProject = res.data;
 
       Swal.fire("Éxito", "Portada actualizada correctamente.", "success");
       setSelectedFile(null);
@@ -70,7 +73,11 @@ const CoverImageModal = ({ show, onClose, project, onSave }) => {
 
         <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>Seleccionar nueva imagen de portada</Form.Label>
-          <Form.Control type="file" accept="image/*" onChange={handleFileChange} />
+          <Form.Control
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
