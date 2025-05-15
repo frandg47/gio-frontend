@@ -11,9 +11,7 @@ const ProjectsTable = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [projectToViewGallery, setProjectToViewGallery] = useState(null);
-
   const [showGalleryModal, setShowGalleryModal] = useState(false);
-
   const [showEditModal, setShowEditModal] = useState(false);
   const [projectToEdit, setProjectToEdit] = useState(null);
 
@@ -22,7 +20,6 @@ const ProjectsTable = () => {
       setLoading(true);
       const response = await axiosInstance.get("/proyectos");
       setProjects(response.data.projects);
-      console.log("response", response.data);
     } catch (error) {
       console.error("Error fetching projects:", error);
     } finally {
@@ -48,8 +45,8 @@ const ProjectsTable = () => {
 
     if (result.isConfirmed) {
       try {
-        await axiosInstance.delete(`/proyectos/${id}`);
-        await getProjects(); // Recargar lista
+        await axiosInstance.delete(`/eliminar/proyecto/${id}`);
+        await getProjects();
         Swal.fire("¡Eliminado!", "El proyecto ha sido eliminado.", "success");
       } catch (err) {
         console.error("Error al eliminar", err);
@@ -60,16 +57,9 @@ const ProjectsTable = () => {
 
   const handleSaveEdit = async (updatedProject) => {
     try {
-      await axiosInstance.put(
-        `/proyectos/${updatedProject._id}`,
-        updatedProject
-      );
+      await axiosInstance.put(`/editar/proyecto/${updatedProject._id}`, updatedProject);
       await getProjects();
-      Swal.fire(
-        "Actualizado",
-        "El proyecto fue actualizado con éxito.",
-        "success"
-      );
+      Swal.fire("Actualizado", "El proyecto fue actualizado con éxito.", "success");
       handleCloseEditModal();
     } catch (err) {
       console.error("Error al actualizar proyecto:", err);
@@ -102,11 +92,28 @@ const ProjectsTable = () => {
       await axiosInstance.put(`/proyectos/${projectId}/remove-image`, {
         imageUrl,
       });
-      await getProjects();
-      setProjectToViewGallery((prev) => ({
-        ...prev,
-        gallery: prev.gallery.filter((img) => img !== imageUrl),
-      }));
+
+      // Actualizar solo la galería del proyecto actual en el modal
+      setProjectToViewGallery((prev) =>
+        prev && prev._id === projectId
+          ? {
+              ...prev,
+              gallery: prev.gallery.filter((img) => img !== imageUrl),
+            }
+          : prev
+      );
+
+      // También actualizar el estado general de proyectos
+      setProjects((prevProjects) =>
+        prevProjects.map((proj) =>
+          proj._id === projectId
+            ? {
+                ...proj,
+                gallery: proj.gallery.filter((img) => img !== imageUrl),
+              }
+            : proj
+        )
+      );
     } catch (error) {
       console.error("Error al eliminar imagen de la galería:", error);
       Swal.fire("Error", "No se pudo eliminar la imagen.", "error");
@@ -123,7 +130,7 @@ const ProjectsTable = () => {
             <th>Detalles</th>
             <th>Categoria</th>
             <th>Imagen Portada</th>
-            <th>Imagenes</th>
+            <th>Imágenes</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -131,46 +138,21 @@ const ProjectsTable = () => {
           {loading
             ? Array.from({ length: 9 }).map((_, i) => (
                 <tr key={i}>
-                  <td>
-                    <Skeleton width={120} />
-                  </td>{" "}
-                  {/* Nombre */}
-                  <td>
-                    <Skeleton count={2} />
-                  </td>{" "}
-                  {/* Descripción */}
-                  <td>
-                    <Skeleton width={100} />
-                  </td>{" "}
-                  {/* Detalles */}
-                  <td>
-                    <Skeleton width={100} />
-                  </td>{" "}
-                  {/* Categoría */}
-                  <td>
-                    <Skeleton width={120} height={80} />
-                  </td>{" "}
-                  {/* Portada */}
+                  <td><Skeleton width={120} /></td>
+                  <td><Skeleton count={2} /></td>
+                  <td><Skeleton width={100} /></td>
+                  <td><Skeleton width={100} /></td>
+                  <td><Skeleton width={120} height={80} /></td>
                   <td>
                     <div style={{ display: "flex", gap: "5px" }}>
                       <Skeleton width={50} height={50} count={3} />
                     </div>
-                  </td>{" "}
-                  {/* Imagenes */}
+                  </td>
                   <td>
-                    <Skeleton
-                      width={60}
-                      height={30}
-                      style={{ marginRight: "5px" }}
-                    />
-                    <Skeleton
-                      width={60}
-                      height={30}
-                      style={{ marginRight: "5px" }}
-                    />
+                    <Skeleton width={60} height={30} style={{ marginRight: "5px" }} />
+                    <Skeleton width={60} height={30} style={{ marginRight: "5px" }} />
                     <Skeleton width={60} height={30} />
-                  </td>{" "}
-                  {/* Acciones */}
+                  </td>
                 </tr>
               ))
             : projects.map((project) => (
@@ -180,17 +162,19 @@ const ProjectsTable = () => {
                   <td>{project.details}</td>
                   <td>{project.category}</td>
                   <td>
-                    <img
-                      src={project.coverImage}
-                      alt={project.title}
-                      className="img-thumbnail"
-                      style={{ maxWidth: "120px", height: "auto" }}
-                    />
+                    {project.coverImage ? (
+                      <img
+                        src={project.coverImage}
+                        alt={project.title}
+                        className="img-thumbnail"
+                        style={{ maxWidth: "120px", height: "auto" }}
+                      />
+                    ) : (
+                      <span>Sin imagen</span>
+                    )}
                   </td>
                   <td>
-                    <div
-                      style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}
-                    >
+                    <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>
                       {project.gallery.slice(0, 3).map((img, index) => (
                         <img
                           key={index}
@@ -242,6 +226,7 @@ const ProjectsTable = () => {
         project={projectToEdit}
         onSave={handleSaveEdit}
       />
+
       <GalleryModal
         show={showGalleryModal}
         onClose={handleCloseGalleryModal}
