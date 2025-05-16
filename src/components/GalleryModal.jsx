@@ -10,7 +10,7 @@ import {
   CloseButton,
 } from "react-bootstrap";
 import Swal from "sweetalert2";
-import axios from "axios";
+import { axiosInstance } from "../config/axiosInstance";
 
 const GalleryModal = ({ show, onClose, project, onGalleryUpdated }) => {
   const [uploading, setUploading] = useState(false);
@@ -56,8 +56,8 @@ const GalleryModal = ({ show, onClose, project, onGalleryUpdated }) => {
     try {
       setUploading(true);
 
-      const { data } = await axios.put(
-        `http://localhost:8080/editar/proyecto/${project._id}/actualizar-galeria`,
+      const { data } = await axiosInstance.put(
+        `/editar/proyecto/${project._id}/actualizar-galeria`,
         formData,
         {
           headers: {

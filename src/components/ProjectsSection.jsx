@@ -18,7 +18,6 @@ const ProjectSection = () => {
             setLoading(true);
             const response = await axiosInstance.get("/proyectos");
             setProjects(response.data.projects);
-            console.log("response", response.data.projects);
         } catch (error) {
             Swal.fire({
                 icon: "error",

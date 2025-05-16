@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Card, Row, Col, Form, Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
-import axios from "axios";
+import { axiosInstance } from "../config/axiosInstance";
 
 const CoverImageModal = ({ show, onClose, project, onSave }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -29,8 +29,8 @@ const CoverImageModal = ({ show, onClose, project, onSave }) => {
       const formData = new FormData();
       formData.append("coverImage", selectedFile);
 
-      const res = await axios.put(
-        `http://localhost:8080/editar/proyecto/${project._id}/actualizar-portada`,
+      const res = await axiosInstance.put(
+        `/editar/proyecto/${project._id}/actualizar-portada`,
         formData,
         {
           headers: {

@@ -68,7 +68,6 @@ const ProjectsTable = () => {
     });
 
     if (result.isConfirmed) {
-      console.log("id", id);
       try {
         await axiosInstance.delete(`eliminar/proyecto/${id}`);
         await getProjects();

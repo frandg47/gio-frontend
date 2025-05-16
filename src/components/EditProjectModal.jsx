@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
-// import { axiosInstance } from "../config/axiosInstance";
-import axios from "axios"; // Asegúrate de importar axios correctamente
+import { axiosInstance } from "../config/axiosInstance";
 
 const EditProjectModal = ({ show, onClose, project, onSave }) => {
   const [formData, setFormData] = useState({
@@ -34,8 +33,8 @@ const EditProjectModal = ({ show, onClose, project, onSave }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.put(
-        `http://localhost:8080/editar/proyecto/${project._id}`,
+      const response = await axiosInstance.put(
+        `/editar/proyecto/${project._id}`,
         formData
       );
 
