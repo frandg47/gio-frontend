@@ -40,7 +40,7 @@ const ProjectDetails = () => {
         getProject();
     }, [id]);
 
-    const slides = project?.gallery?.map(img => ({ src: img })) || [];
+    const slides = project?.gallery?.map(img => ({ src: img.url })) || [];
 
     return (
         <>
@@ -49,7 +49,7 @@ const ProjectDetails = () => {
                 style={{
                     backgroundImage: loading
                         ? 'none'
-                        : `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${project.coverImage})`,
+                        : `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${project.coverImage.url})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
@@ -87,7 +87,7 @@ const ProjectDetails = () => {
                                 <div key={idx} className="gallery-item">
                                     <div className="image-wrapper">
                                         <img
-                                            src={image}
+                                            src={image.url}
                                             alt={`Imagen ${idx + 1}`}
                                             onClick={() => {
                                                 setIndex(idx);

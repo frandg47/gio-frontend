@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import ProjectDetails from './pages/ProjectDetail';
 import Error404 from './pages/Error404';
 import ScrollToTop from './components/ScrollToTop';
+import ProjectsTable from './components/ProjectsTable';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/proyectos" element={<Projects />} />
           <Route path='/proyectos/:id' element={<ProjectDetails />} />
           <Route path='*' element={<Error404 />} />
+          <Route path="/admin/proyectos" element={<ProjectsTable />} />
         </Routes>
         <Footer />
       </Router>
